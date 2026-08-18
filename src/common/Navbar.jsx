@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Clapperboard, DatabaseBackup, Trash, FileDownload, FileUp } from 'lucide-react';
+import { Clapperboard, DatabaseBackup, Trash, FileDown, FileUp } from 'lucide-react';
 
 function Navbar() {
 
@@ -38,7 +38,7 @@ function Navbar() {
                         <button 
                         className='flex gap-1 items-center px-2 py-3 rounded-md font-semibold text-movies-accent transition-colors hover:cursor-pointer hover:bg-movies-danger hover:text-movies-text'
                         >
-                            <FileDownload />
+                            <FileDown />
                             <span>Export Backup</span>
                         </button>
 
