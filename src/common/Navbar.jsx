@@ -1,10 +1,14 @@
+import { Link } from 'react-router-dom';
+import { Clapperboard } from 'lucide-react';
+
 function Navbar() {
     return(
-        <div className="flex justify-between items-center gap-3 p-6 w-full h-full max-h-60 shadow bg-movies-card text-movies-text">
+        <div className='flex justify-between items-center gap-3 p-6 w-full h-full max-h-80 shadow bg-movies-card text-movies-text'>
 
-            <div>
-                <span>Logo</span>
-            </div>
+            <Link to='/' className='flex gap-3 items-center font-bold text-3xl'>
+                <Clapperboard />
+                <span>Movies Reviews</span>
+            </Link>
 
             <div>
                 <span>List</span>
