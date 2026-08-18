@@ -15,10 +15,10 @@ function Navbar() {
                     Media
                 </Link>
                 <Link to='/reviews' className='transition-colors hover:text-movies-muted'>
-                    Reviews
+                    My Reviews
                 </Link>
-                <Link to='/top10' className='transition-colors hover:text-movies-muted'>
-                    Top 10
+                <Link to='/mylists' className='transition-colors hover:text-movies-muted'>
+                    My Lists
                 </Link>
             </nav>
 
