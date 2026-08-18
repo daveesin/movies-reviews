@@ -1,10 +1,11 @@
 import { Outlet } from 'react-router-dom';
+import Navbar from './common/Navbar';
 
 function App() {
   return(
-    <div>
+    <div className='w-full h-full flex flex-col '>
 
-      <h1>Future Navbar</h1>
+      <Navbar />
       <Outlet />
       <h1>Future Footer</h1>
     
