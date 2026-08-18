@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { Clapperboard } from 'lucide-react';
+import { Clapperboard, DatabaseBackup } from 'lucide-react';
 
 function Navbar() {
     return(
-        <div className='flex justify-between items-center gap-3 px-8 py-8 shadow bg-movies-card text-movies-text'>
+        <div className='flex justify-between items-center gap-3 px-10 py-8 shadow bg-movies-card text-movies-text'>
 
             <Link to='/' className='flex gap-3 items-center font-bold text-3xl'>
                 <Clapperboard className='w-8 h-8 text-movies-accent' />
@@ -22,8 +22,10 @@ function Navbar() {
                 </Link>
             </nav>
 
-            <div>
-                <span>Login/Settings (?)</span>
+            <div className='relative'>
+                <button className='hover:cursor-pointer'>
+                    <DatabaseBackup className='w-8 h-8 text-movies-accent transition-colors hover:text-movies-accent-dark' />
+                </button>
             </div>
 
         </div>
