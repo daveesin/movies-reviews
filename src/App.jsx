@@ -1,6 +1,14 @@
+import { Outlet } from 'react-router-dom';
+
 function App() {
   return(
-    <h1>App</h1>
+    <div>
+
+      <h1>Future Navbar</h1>
+      <Outlet />
+      <h1>Future Footer</h1>
+    
+    </div>
   );
 }
 
