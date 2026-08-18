@@ -33,6 +33,7 @@ function Navbar() {
                 >
                     <DatabaseBackup className='w-8 h-8 text-movies-accent transition-colors hover:text-movies-accent-dark' />
                 </button>
+                
                 {isMenuOpen && (
                     <div className='absolute right-0 mt-3 w-52 bg-movies-card border border-movies-border rounded-xl shadow-2xl z-50 p-2 flex flex-col gap-1'>
                         <button 
