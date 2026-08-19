@@ -23,4 +23,3 @@ export async function getMovies(page=1) {
         totalPages: data.total_pages,
     }
 }
-  
