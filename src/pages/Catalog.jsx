@@ -15,7 +15,7 @@ function Catalog() {
         async function fetchInitialMovies() {
             setLoading(true);
             try {
-                const moviesList = await getMovies();
+                const moviesList = await getMovies(pageFromUrl);
                 setCatalog(moviesList.movies);
                 setTotalPages(moviesList.totalPages);
             } catch(err) {
@@ -27,7 +27,7 @@ function Catalog() {
 
         fetchInitialMovies();
 
-    }, []);
+    }, [pageFromUrl]);
 
     function handleNewPage(newPage) {
         setSearchParams({ page: newPage });
