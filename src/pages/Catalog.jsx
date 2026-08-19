@@ -1,23 +1,35 @@
 import { useState, useEffect } from 'react';
-import { getMovies } from '../services/moviesApi';
+import { getMovies, searchMovies } from '../services/moviesApi';
 import { useSearchParams } from 'react-router-dom';
 
 function Catalog() {
     
     const [searchParams, setSearchParams] = useSearchParams();
-    const pageFromUrl = Number(searchParams.get('page')) || 1;
 
+    const pageFromUrl = Number(searchParams.get('page')) || 1;
+    const queryFromUrl = searchParams.get('q') || '';
+
+    const [searchTerm, setSearchTerm] = useState(queryFromUrl);
     const [catalog, setCatalog] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        async function fetchInitialMovies() {
+        async function fetchMovies() {
             setLoading(true);
             try {
-                const moviesList = await getMovies(pageFromUrl);
+                let moviesList;
+
+                if(queryFromUrl) {
+                    moviesList = await searchMovies(queryFromUrl, pageFromUrl);
+                } else {
+                    moviesList = await getMovies(pageFromUrl);
+                }
+
                 setCatalog(moviesList.movies);
-                setTotalPages(moviesList.totalPages);
+                const maxPages = Math.min(moviesList.totalPages, 500);
+                setTotalPages(maxPages);
+
             } catch(err) {
                 console.log(`Error: ${err}`);
             } finally {
@@ -25,14 +37,28 @@ function Catalog() {
             }
         }
 
-        fetchInitialMovies();
+        fetchMovies();
 
-    }, [pageFromUrl]);
+    }, [queryFromUrl, pageFromUrl]);
+
+    
+    function handleSearch(e) {
+        e.preventDefault();
+
+        if (searchTerm.trim()) {
+        setSearchParams({ q: searchTerm, page: 1 });
+        } else {
+        setSearchParams({});
+        }
+    };
 
     function handleNewPage(newPage) {
-        setSearchParams({ page: newPage });
+        const newParams = { page: newPage };
+        if (queryFromUrl) newParams.q = queryFromUrl;
+
+        setSearchParams(newParams);
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
+    }
     
 
     if (loading) {
@@ -51,6 +77,22 @@ function Catalog() {
                 <h1 className="text-2xl font-bold text-movies-border tracking-wide">Catálogo de Filmes</h1>
                 <span className="text-sm text-movies-muted font-medium">Página {pageFromUrl} de {totalPages}</span>
             </div>
+
+            <form onSubmit={handleSearch} className="mb-6 flex gap-2">
+                <input 
+                    type="text" 
+                    placeholder="Digite o nome de um filme..."
+                    value={searchTerm}
+                    className="flex-1 bg-movies-card border border-movies-border rounded-lg p-3 text-movies-text placeholder:text-movies-muted focus:outline-none focus:border-movies-accent"
+                    onChange={(event) => setSearchTerm(event.target.value)}
+                />
+                <button 
+                    type="submit"
+                    className="px-6 py-3 bg-movies-accent text-movies-bg font-bold rounded-lg hover:bg-movies-accent-dark transition cursor-pointer"
+                >
+                    Buscar
+                </button>
+            </form>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
                 {catalog.map((movie) => {

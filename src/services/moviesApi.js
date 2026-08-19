@@ -25,8 +25,10 @@ export async function getMovies(page=1) {
 }
 
 export async function searchMovies(searchTerm, page=1) {
+
+    if(!searchTerm) return getMovies(page);
     
-    const response = await fetch(`${BASE_URL}/search/movie?query=${encodeURIComponent(searchTerm)}&page=${page}`);
+    const response = await fetch(`${BASE_URL}/search/movie?query=${encodeURIComponent(searchTerm)}&page=${page}`, options);
     if(!response.ok) {
         throw new Error('Fail loading seached movies from the MDB API.')
     }
