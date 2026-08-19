@@ -1,6 +1,12 @@
 function Home() {
     return(
-        <h1>Home</h1>
+        <div className='w-full h-screen max-h-4xl flex flex-col bg-movies-bg'>
+
+            <div>
+                
+            </div>
+
+        </div>
     );
 }
 
