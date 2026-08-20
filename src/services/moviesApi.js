@@ -40,3 +40,14 @@ export async function searchMovies(searchTerm, page=1) {
         totalPages: data.total_pages,
     }
 }
+
+
+export async function getMovieDetails(movieId) {
+
+    const response = await fetch(`${BASE_URL}/movie/${movieId}`, options);
+    if(!response.ok) {
+        throw new Error('Fail loading movie details from TMDB API.')
+    }
+
+    return await response.json();
+}
