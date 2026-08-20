@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getMovies, searchMovies } from '../services/moviesApi';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 
 function Catalog() {
     
@@ -105,8 +105,9 @@ function Catalog() {
                         : 'N/A';
 
                     return (
-                        <div 
+                        <Link
                         key={movie.id} 
+                        to={`/media/${movie.id}`}
                         className="bg-movies-card border border-movies-border rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-105 hover:border-movies-accent/50 flex flex-col justify-between group cursor-pointer"
                         >
                             <div className="relative overflow-hidden">
@@ -128,7 +129,7 @@ function Catalog() {
                                     <p className="text-movies-muted text-xs mt-1">{releaseYear}</p>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     );
                 })}
             </div>
