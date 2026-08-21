@@ -5,6 +5,7 @@ import { CRITERIA } from '../constants/reviewForm';
 
 function Review() {
 
+    //Declare the states and variables
     const { movieId } = useParams();
     const [selectedMovie, setSelectedMovie] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -21,6 +22,7 @@ function Review() {
         rewatchability: 0
     });
 
+    //useEffect to load movie data
     useEffect(() => {
         async function fetchMovieDetails() {
             setLoading(true);
@@ -38,6 +40,7 @@ function Review() {
         fetchMovieDetails();
     }, [movieId])
 
+    //Return main component jsx code
     return(
         <h1>Review</h1>
     );
