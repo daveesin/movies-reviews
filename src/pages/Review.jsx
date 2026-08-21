@@ -9,6 +9,7 @@ function Review() {
     //Declare the states and variables
     const { movieId } = useParams();
     const navigate = useNavigate();
+    const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
 
     const [selectedMovie, setSelectedMovie] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -46,6 +47,31 @@ function Review() {
             [topicId]: ratingValue
         }));
     };
+
+    function handleSaveReview(reviews, movie, ratings, comments) {
+
+        const ratingValues = Object.values(ratings);
+        const totalScore = ratingValues.reduce((acc, curr) => acc + curr, 0);
+        const overallRating = Number((totalScore / ratingValues.length).toFixed(1));
+
+        const newReview = {
+            id: movie.id,
+            title: movie.title,
+            backdropPath: movie.backdrop_path,
+            posterPath: movie.poster_path,
+            overallRating,
+            ratings,
+            comments,
+            createdAt: new Date().toISOString()
+        };
+
+        const updatedReviews = [
+            ...reviews.filter((r) => r.id !== movie.id),
+            newReview
+        ];
+
+        localStorage.setItem('reviews', JSON.stringify(updatedReviews));
+    }
 
 
     //Return (loading case)
@@ -88,8 +114,15 @@ function Review() {
             placeholder='Insert your comments here...'
             value={comment}
             onChange={(event) => setComment(event.target.value)}
-            className='p-2'
+            className='border border-movies-border p-2 rounded-md shadow'
             />
+
+            <button
+            className='p-1.5 bg-movies-accent font-bold text-movies-text hover:bg-movies-accent-dark hover:cursor-pointer'
+            onClick={() => handleSaveReview(reviews, selectedMovie, ratings, comment)}
+            >
+                Save
+            </button>
 
         </div>
     );
