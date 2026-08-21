@@ -87,6 +87,15 @@ function Review() {
         <div className='min-h-screen bg-movies-bg text-movies-text flex justify-center p-4 sm:p-8'>
             <div className='w-full max-w-2xl bg-movies-card border border-movies-border rounded-xl p-6 sm:p-8 shadow-xl flex flex-col gap-6 self-start'>
                 
+                <button 
+                    onClick={() => navigate(-1)}
+                    className="mb-6 px-4 py-2 bg-movies-card border border-movies-border text-movies-text rounded-lg 
+                            hover:bg-movies-accent hover:text-movies-bg hover:border-movies-accent 
+                            transition cursor-pointer font-medium shadow-md flex items-center gap-2"
+                >
+                    ← Back
+                </button>
+
                 <div className='flex items-center gap-3 p-2'>
                     <img 
                         src={selectedMovie.poster_path 
