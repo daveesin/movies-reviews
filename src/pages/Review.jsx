@@ -9,7 +9,6 @@ function Review() {
     //Declare the states and variables
     const { movieId } = useParams();
     const navigate = useNavigate();
-    const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
 
     const [selectedMovie, setSelectedMovie] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -48,8 +47,9 @@ function Review() {
         }));
     };
 
-    function handleSaveReview(reviews, movie, ratings, comments) {
+    function handleSaveReview(movie, ratings, comments) {
 
+        const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
         const ratingValues = Object.values(ratings);
         const totalScore = ratingValues.reduce((acc, curr) => acc + curr, 0);
         const overallRating = Number((totalScore / ratingValues.length).toFixed(1));
@@ -71,6 +71,7 @@ function Review() {
         ];
 
         localStorage.setItem('reviews', JSON.stringify(updatedReviews));
+        navigate(`/movie/${movie.id}`);
     }
 
 
@@ -119,7 +120,7 @@ function Review() {
 
             <button
             className='p-1.5 bg-movies-accent font-bold text-movies-text hover:bg-movies-accent-dark hover:cursor-pointer'
-            onClick={() => handleSaveReview(reviews, selectedMovie, ratings, comment)}
+            onClick={() => handleSaveReview(selectedMovie, ratings, comment)}
             >
                 Save
             </button>
