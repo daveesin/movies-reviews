@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieDetails } from '../services/moviesApi';
+import { CRITERIA } from '../constants/reviewForm';
 
 function Review() {
 
@@ -9,9 +10,16 @@ function Review() {
     const [loading, setLoading] = useState(true);
     
     const [comment, setComment] = useState('');
-    const [overallRating, setOverallRating] = useState(0.0);
-    const [ratings, setRatings] = useState(null);
-    const [review, setReview] = useState(null);
+    const [ratings, setRatings] = useState({
+        acting: 0,
+        screenplay: 0,
+        plot: 0,
+        direction: 0,
+        cinematography: 0,
+        soundtrack: 0,
+        climax: 0,
+        rewatchability: 0
+    });
 
     useEffect(() => {
         async function fetchMovieDetails() {
