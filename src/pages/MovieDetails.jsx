@@ -51,15 +51,25 @@ function MovieDetails() {
     return (
         <div className="flex-1 min-h-screen bg-movies-bg text-movies-text">
             <div className="max-w-5xl w-full mx-auto p-6">
-            
-                <button 
-                    onClick={() => navigate(-1)}
-                    className="mb-6 px-4 py-2 bg-movies-card border border-movies-border text-movies-text rounded-lg 
-                               hover:bg-movies-accent hover:text-movies-bg hover:border-movies-accent 
-                               transition cursor-pointer font-medium shadow-md flex items-center gap-2"
-                >
-                    ← Voltar
-                </button>
+                <div className="max-w-5xl w-full flex justify-between items-center mx-auto p-6">
+                    <button 
+                        onClick={() => navigate(-1)}
+                        className="mb-6 px-4 py-2 bg-movies-card border border-movies-border text-movies-text rounded-lg 
+                                hover:bg-movies-accent hover:text-movies-bg hover:border-movies-accent 
+                                transition cursor-pointer font-medium shadow-md flex items-center gap-2"
+                    >
+                        ← Voltar
+                    </button>
+
+                    <button 
+                        onClick={() => navigate(`/media/${selectedMovie.id}/review`)}
+                        className="mb-6 px-4 py-2 bg-movies-card border border-movies-border text-movies-text rounded-lg 
+                                hover:bg-movies-accent hover:text-movies-bg hover:border-movies-accent 
+                                transition cursor-pointer font-medium shadow-md flex items-center gap-2"
+                    >
+                        Create Review
+                    </button>
+                </div>
 
                 {backdropUrl && (
                     <div className="w-full h-80 rounded-2xl overflow-hidden mb-8 border border-movies-border relative shadow-lg">
