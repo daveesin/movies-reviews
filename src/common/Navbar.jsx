@@ -1,10 +1,16 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Clapperboard, DatabaseBackup, Trash, FileDown, FileUp } from 'lucide-react';
+import { handleExportBackup } from '../utils/backup';
 
 function Navbar() {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    function handleOnExportClick() {
+        handleExportBackup();
+        setIsMenuOpen(false);
+    };
 
     return(
         <div className='flex justify-between items-center gap-3 px-10 py-8 shadow bg-movies-card text-movies-text'>
@@ -38,6 +44,7 @@ function Navbar() {
                     <div className='absolute right-0 mt-3 w-52 bg-movies-card border border-movies-border rounded-xl shadow-2xl z-50 p-2 flex flex-col gap-1'>
                         <button 
                         className='flex gap-1 items-center px-2 py-3 rounded-md font-semibold text-movies-accent transition-colors hover:cursor-pointer hover:bg-movies-danger hover:text-movies-text'
+                        onClick={handleOnExportClick}
                         >
                             <FileDown />
                             <span>Export Backup</span>
