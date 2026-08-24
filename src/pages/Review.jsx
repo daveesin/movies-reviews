@@ -71,7 +71,7 @@ function Review() {
         ];
 
         localStorage.setItem('reviews', JSON.stringify(updatedReviews));
-        navigate(`/movie/${movie.id}`);
+        navigate(`/media/${movie.id}`);
     }
 
 
