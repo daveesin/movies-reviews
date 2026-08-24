@@ -34,6 +34,7 @@ function Navbar() {
     function handleOnCleanClick() {
         handleCleanAllData();
         setIsMenuOpen(false);
+        window.location.reload();
     };
 
     return(
