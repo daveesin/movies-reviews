@@ -1,19 +1,51 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Clapperboard, DatabaseBackup, Trash, FileDown, FileUp } from 'lucide-react';
-import { handleExportBackup } from '../utils/backup';
+import { handleExportBackup, handleImportBackup, handleCleanAllData } from '../utils/backup';
 
 function Navbar() {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const fileInputRef = useRef(null);
 
     function handleOnExportClick() {
         handleExportBackup();
         setIsMenuOpen(false);
     };
 
+    function handleOnImportClick() {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    }
+
+    function handleFileChange(event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            handleImportBackup(file, () => {
+                setIsMenuOpen(false);
+                window.location.reload(); 
+            });
+        }
+        event.target.value = '';
+    }
+
+    function handleOnCleanClick() {
+        handleCleanAllData();
+        setIsMenuOpen(false);
+    };
+
     return(
         <div className='flex justify-between items-center gap-3 px-10 py-8 shadow bg-movies-card text-movies-text'>
+
+            <input 
+                type="file" 
+                ref={fileInputRef} 
+                onChange={handleFileChange} 
+                accept=".json" 
+                className="hidden" 
+            />
 
             <Link to='/' className='flex gap-3 items-center font-bold text-3xl'>
                 <Clapperboard className='w-8 h-8 text-movies-accent' />
@@ -52,6 +84,7 @@ function Navbar() {
 
                         <button 
                         className='flex gap-1 items-center px-2 py-3 rounded-md font-semibold text-movies-accent transition-colors hover:cursor-pointer hover:bg-movies-danger hover:text-movies-text'
+                        onClick={handleOnImportClick}
                         >
                             <FileUp />
                             <span>Import Backup</span>
@@ -59,6 +92,7 @@ function Navbar() {
 
                         <button 
                         className='flex gap-1 items-center px-2 py-3 rounded-md font-semibold text-movies-accent transition-colors hover:cursor-pointer hover:bg-movies-danger hover:text-movies-text'
+                        onClick={handleOnCleanClick}
                         >
                             <Trash />
                             <span>Clean All Data</span>
